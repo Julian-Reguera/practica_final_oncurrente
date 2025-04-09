@@ -31,7 +31,6 @@ public class AlmacenSemaphoreMulti<Producto> implements Almacen<Producto>{
 			productores.release();
 			productos.release();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -48,7 +47,6 @@ public class AlmacenSemaphoreMulti<Producto> implements Almacen<Producto>{
 			consumidores.release();
 			espacios.release();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

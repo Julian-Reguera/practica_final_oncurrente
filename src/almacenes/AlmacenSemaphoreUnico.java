@@ -19,7 +19,6 @@ public class AlmacenSemaphoreUnico<Producto> implements Almacen<Producto>{
 			espacio = producto;
 			consumidor.release();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -33,7 +32,6 @@ public class AlmacenSemaphoreUnico<Producto> implements Almacen<Producto>{
 			res = espacio;
 			productor.release();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
