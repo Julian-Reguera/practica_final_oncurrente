@@ -11,6 +11,10 @@ import locks.LockId;
 import locks.LockRompeEmpate;
 import locks.LockSemaforo;
 import locks.LockTicket;
+import monitores.AddSubLockMonitor;
+import monitores.AddSubMonitor;
+import monitores.AddSubSynchronizedMonitor;
+import monitores.AlmacenSynchronizedMonitor;
 import utils.EnteroConcurrente;
 
 public class Main {
@@ -32,12 +36,19 @@ public class Main {
 		aux = testLock(numNucleos,100000,new LockSemaforo());
 		System.out.println("lock semaforo: " + aux);
 		
-		System.out.println("\nPRUEBA DE LOS ALMACENES (practica3)");
-		aux2 = testAlmacen(numNucleos, 1000,new AlmacenSemaphoreUnico<Integer>());
+		System.out.println("\nPRUEBA DE LOS ALMACENES (practica 3/4)");
+		aux2 = testAlmacen(numNucleos, 10000,new AlmacenSemaphoreUnico<Integer>());
 		System.out.println("almacen con semaforo unico: " + aux2);
-		aux2 = testAlmacen(numNucleos, 1000,new AlmacenSemaphoreMulti<Integer>(30));
+		aux2 = testAlmacen(numNucleos, 10000,new AlmacenSemaphoreMulti<Integer>(30));
 		System.out.println("almacen con semaforo multiple: " + aux2);
+		aux2 = testAlmacen(numNucleos, 10000,new AlmacenSynchronizedMonitor<Integer>(30));
+		System.out.println("almacen synchronized monitor: " + aux2);
 		
+		System.out.println("\nPRUEBA DE LOS MONITORES ADD/SUB (practica4)");
+		aux = testAddSubMonitor(numNucleos, 10000, new AddSubLockMonitor());
+		System.out.println("monitor con lock: " + aux);
+		aux = testAddSubMonitor(numNucleos, 10000, new AddSubSynchronizedMonitor());
+		System.out.println("monitor con synchronize: " + aux);
 	}
 	
 	private static int testLock(int numNucleos, int iteraciones, LockId lock) {
@@ -146,6 +157,40 @@ public class Main {
 		}
 		
 		return res;	
+	}
+	
+	private static int testAddSubMonitor(int numNucleos, int repeticiones, AddSubMonitor monitor) {
+		Thread hilos[] = new Thread[numNucleos];
+		
+		for(int i = 0; i< numNucleos; i++) {
+			if(i%2 == 0) { //la mitad suman
+				hilos[i] = new Thread(()->{
+					for(int j = 0; j< repeticiones;j++)
+						monitor.add(1);
+				});
+			}
+			else { //la mitad restan
+				hilos[i] = new Thread(()->{ 
+					for(int j = 0; j< repeticiones;j++)
+						monitor.sub(1);
+				});
+			}
+		}
+		
+		for(int i = 0; i< numNucleos; i++) {
+			hilos[i].start();
+		}
+		
+		for(int i = 0; i< numNucleos; i++) {
+			try {
+				hilos[i].join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return monitor.getSumador();
 	}
 
 }

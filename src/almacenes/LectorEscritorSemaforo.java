@@ -2,7 +2,7 @@ package almacenes;
 
 import java.util.concurrent.Semaphore;
 
-public class LectorEscritor<Producto> {
+public class LectorEscritorSemaforo<Producto> {
 	private volatile Object almacen[];
 	private int nl; //numero lectores lellendo
 	private int ne; //numero escritores escribiendo (max 1)
@@ -10,7 +10,7 @@ public class LectorEscritor<Producto> {
 	private int de; //escritores esperando
 	private Semaphore lectores,escritores,lockRecursos;
 	
-	public LectorEscritor(int tam) {
+	public LectorEscritorSemaforo(int tam) {
 		nl = 0;
 		ne = 0;
 		dl = 0;
