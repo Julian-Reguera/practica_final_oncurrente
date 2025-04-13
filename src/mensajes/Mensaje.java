@@ -10,5 +10,4 @@ public abstract class Mensaje {
 	public int getTipo() {
 		return tipoMensaje;
 	}
-
 }

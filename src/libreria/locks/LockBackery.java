@@ -22,7 +22,7 @@ public class LockBackery implements LockId{
 		int max = 0;
 		for(int i = 0; i< numHilos;i++) {
 			int num = turno[i].numero;
-			if(max > num)
+			if(max < num)
 				max = num;
 		}
 		
