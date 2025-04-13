@@ -1,4 +1,4 @@
-package monitores;
+package libreria.monitores;
 
 public interface AddSubMonitor {
 	public void add(int i );

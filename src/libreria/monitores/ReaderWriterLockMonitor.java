@@ -1,4 +1,4 @@
-package monitores;
+package libreria.monitores;
 
 import java.util.concurrent.locks.ReentrantLock;
 

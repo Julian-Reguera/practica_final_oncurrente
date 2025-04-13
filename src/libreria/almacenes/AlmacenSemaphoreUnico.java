@@ -1,4 +1,4 @@
-package almacenes;
+package libreria.almacenes;
 
 import java.util.concurrent.Semaphore;
 

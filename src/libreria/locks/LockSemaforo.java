@@ -1,4 +1,4 @@
-package locks;
+package libreria.locks;
 
 import java.util.concurrent.Semaphore;
 

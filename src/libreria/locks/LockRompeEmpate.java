@@ -1,6 +1,6 @@
-package locks;
+package libreria.locks;
 
-import utils.EnteroConcurrente;
+import libreria.utils.EnteroConcurrente;
 
 public class LockRompeEmpate implements LockId{
 	private EnteroConcurrente ultimo[];

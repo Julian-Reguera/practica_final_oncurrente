@@ -1,4 +1,4 @@
-package locks;
+package libreria.locks;
 
 public class DualLock implements LockId{
 	private volatile int ultimo;

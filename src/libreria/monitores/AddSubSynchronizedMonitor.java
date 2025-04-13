@@ -1,4 +1,4 @@
-package monitores;
+package libreria.monitores;
 
 public class AddSubSynchronizedMonitor implements AddSubMonitor{
 	private int sumador;

@@ -1,6 +1,6 @@
-package almacenes.almacenes.test;
+package libreria.almacenes.almacenes.test;
 
-import almacenes.Almacen;
+import libreria.almacenes.Almacen;
 
 public class ConsumidorInt extends Thread{
 	private Almacen<Integer> almacen;

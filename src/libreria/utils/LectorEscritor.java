@@ -1,4 +1,4 @@
-package utils;
+package libreria.utils;
 
 public interface LectorEscritor<Producto> {
 

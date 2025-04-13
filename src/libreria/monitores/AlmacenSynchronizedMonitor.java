@@ -1,6 +1,6 @@
-package monitores;
+package libreria.monitores;
 
-import almacenes.Almacen;
+import libreria.almacenes.Almacen;
 
 public class AlmacenSynchronizedMonitor<Producto> implements Almacen<Producto> {
 	private int inicio, fin, tamAlmacen, numProductos;

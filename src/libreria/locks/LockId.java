@@ -1,4 +1,4 @@
-package locks;
+package libreria.locks;
 
 public interface LockId {
 	public void takeLock(int id);

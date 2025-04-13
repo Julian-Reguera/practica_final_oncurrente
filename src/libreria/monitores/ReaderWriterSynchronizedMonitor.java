@@ -1,4 +1,4 @@
-package monitores;
+package libreria.monitores;
 
 public class ReaderWriterSynchronizedMonitor<Producto> {
 	private Object almacen[];

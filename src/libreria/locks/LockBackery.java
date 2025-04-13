@@ -1,6 +1,6 @@
-package locks;
+package libreria.locks;
 
-import utils.EnteroConcurrente;
+import libreria.utils.EnteroConcurrente;
 
 public class LockBackery implements LockId{
 	private EnteroConcurrente turno[]; //el turno de cada hilo
@@ -20,15 +20,20 @@ public class LockBackery implements LockId{
 		turno[id].numero = 1;
 		
 		int max = 0;
-		for(int i = 0; i< numHilos;i++)
-			if(max > turno[i].numero)
-				max = turno[i].numero;
+		for(int i = 0; i< numHilos;i++) {
+			int num = turno[i].numero;
+			if(max > num)
+				max = num;
+		}
 		
 		turno[id].numero = max+1;
 		
 		for(int i = 0; i<numHilos;i++)
-			while(turno[i].numero == turno[id].numero && i<id)
-				while(turno[i].numero != 0 && turno[i].numero < turno[id].numero);
+			while(comprueboTruno(turno[i].numero, turno[id].numero, i ,id));
+	}
+	
+	private boolean comprueboTruno(int turnoI,int turnoId,int i,int id) {
+		return (turnoI == turnoId && i<id) || (turnoI != 0 && turnoI < turnoId);
 	}
 
 	@Override

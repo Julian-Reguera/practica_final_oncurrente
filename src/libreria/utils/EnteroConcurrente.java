@@ -1,4 +1,4 @@
-package utils;
+package libreria.utils;
 
 public class EnteroConcurrente {
 	public volatile int numero;
