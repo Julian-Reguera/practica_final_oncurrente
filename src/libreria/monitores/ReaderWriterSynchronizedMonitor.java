@@ -1,11 +1,9 @@
 package libreria.monitores;
 
-public class ReaderWriterSynchronizedMonitor<Producto> {
-	private Object almacen[];
+public class ReaderWriterSynchronizedMonitor{
 	int nw,nr;
 	
 	public ReaderWriterSynchronizedMonitor(int size) {
-		almacen = new Object[size];
 		nw = 0;
 		nr = 0;
 	}

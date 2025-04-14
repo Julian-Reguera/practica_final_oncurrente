@@ -3,63 +3,94 @@ package libreria.monitores;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class ReaderWriterLockMonitor <Producto> {
+public class ReaderWriterLockMonitor{
 	private final ReentrantLock lock;
-	private Object almacen[];
 	private Condition okToRead, okToWrite;
-	private int nr,nw;
+	private int nr,nw,dr,dw;
 	
-	public ReaderWriterLockMonitor(int size) {
+	public ReaderWriterLockMonitor() {
 		lock = new ReentrantLock(true);
-		almacen = new Object[size];
 		nr=0;
 		nw=0;
+		dw=0;
+		dr=0;
 		okToRead = lock.newCondition();
 		okToWrite = lock.newCondition();
 	}
 	
 	public void request_read() {
-			try {
-				while(nr>0) okToRead.await();
-				nr++;
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		lock.lock();
+		
+		try {
+			if(nw > 0) {
+				dr++;
+				okToRead.await(); // Paso de condicion. ya se ha hecho dr-- y br++
+				
+				//Despierto a los lectores en cadena
+				if(dr>0) {
+					dr--;
+					nr++;
+					okToRead.signal();
+				}
 			}
+			else {
+				nr++;
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		lock.unlock();
 	}
 	
 	public void release_read() {
+		lock.lock();
+		
 		nr--;
-		if(nr == 0) okToWrite.signal();
+		if(nr == 0 && dw > 0) {
+			dw--;
+			nw++;
+			okToWrite.signal();
+		}
+			
+		lock.unlock();
 	}
 	
 	public void request_write() {
+		lock.lock();
+		
 		try {
-			while(nr>0 || nw >0) okToWrite.await();
-			nw++;
+			if(nr>0 || nw > 0) {
+				dw++;
+				okToWrite.await();//Paso de condición dw-- y nw++
+			}
+			else {
+				nw++;
+			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		};
+		
+		lock.unlock();
 	}
 	
 	public void release_write() {
-		nw--;
-		okToWrite.signal();
-		okToRead.signal();
-	}
-	
-	public Producto read(int pos) {
-		Producto prod = null;
 		lock.lock();
-		prod = (Producto)almacen[pos];
-		lock.unlock();
 		
-		return prod;
-	}
-	
-	public void write(Producto prod, int size) {
-		lock.lock();
-		almacen[size] = prod;
+		nw--;
+		
+		if(dw > 0) {
+			dw--;
+			nw++;
+			okToWrite.signal();
+		}
+		else if(dr > 0) {
+			dr--;
+			nr++;
+			okToRead.signal();
+		}
+		
 		lock.unlock();
 	}
 }
