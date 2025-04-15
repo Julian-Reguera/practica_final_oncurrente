@@ -1,38 +1,49 @@
 package servidor;
 
-import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Usuario {
+public class Usuario implements UsuarioConst{
 	private String name;
 	private Set<String> files;
-	private Socket conection;
+	private boolean conectado;
+	private String ip;
+	private int port; //puerto para descargar archivos
 	
 	public Usuario(String nombre) {
 		this.name = nombre;
-		conection = null;
-		files = new HashSet<String>();
+		this.files = new HashSet<String>();
+		this.conectado = false;
+		this.ip = "";
+		this.port = 0;
 	}
 	
 	public String getName() {
 		return name;
 	}
 	
-	public void conectar(Socket conexion) {
-		this.conection = conexion;
+	public void conectar(String ip, int port) {
+		this.conectado = true;
+		this.ip = ip;
+		this.port = port;
 	}
 	
 	public void desconectar() {
-		this.conection = null;
+		this.conectado = false;
+		this.ip = "";
+		this.port = 0;
 	}
 	
 	public boolean isConected() {
-		return !(conection == null);
+		return conectado;
 	}
 	
-	public Socket getConection() {
-		return conection;
+	public String getIp() {
+		return ip;
+	}
+	
+	public int getPort() {
+		return port;
 	}
 	
 	public void addFile(String archivo) {

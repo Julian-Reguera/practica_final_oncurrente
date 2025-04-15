@@ -1,6 +1,10 @@
 package mensajes;
 
-public abstract class Mensaje {
+import java.io.Serializable;
+
+public abstract class Mensaje implements Serializable {
+	private static final long serialVersionUID = 1L; //sino me da warning 
+	
 	private int tipoMensaje;
 	
 	public Mensaje(int tipo) {
