@@ -13,7 +13,6 @@ public class ReaderWriterSynchronizedMonitor{
 			while(nw>0) wait();
 			nr++;
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -28,7 +27,6 @@ public class ReaderWriterSynchronizedMonitor{
 			while(nr > 0 || nw > 0) wait();
 			nw++;
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -14,6 +14,7 @@ import libreria.locks.LockTicket;
 import libreria.monitores.AddSubLockMonitor;
 import libreria.monitores.AddSubMonitor;
 import libreria.monitores.AddSubSynchronizedMonitor;
+import libreria.monitores.AlmacenLockMonitor;
 import libreria.monitores.AlmacenSynchronizedMonitor;
 import libreria.utils.EnteroConcurrente;
 
@@ -42,6 +43,8 @@ public class PruebaLibreria {
 		System.out.println("almacen con semaforo multiple: " + aux2);
 		aux2 = testAlmacen(numNucleos, 10000,new AlmacenSynchronizedMonitor<Integer>(30));
 		System.out.println("almacen synchronized monitor: " + aux2);
+		aux2 = testAlmacen(numNucleos, 10000,new AlmacenLockMonitor<Integer>(30));
+		System.out.println("almacen lock monitor: " + aux2);
 		
 		System.out.println("\nPRUEBA DE LOS MONITORES ADD/SUB (practica4)");
 		aux = testAddSubMonitor(numNucleos, 10000, new AddSubLockMonitor());

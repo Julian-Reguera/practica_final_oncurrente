@@ -16,18 +16,17 @@ public class AlmacenSynchronizedMonitor<Producto> implements Almacen<Producto> {
 	@Override
 	public synchronized void almacenar(Producto producto) {
 		try {
-			while(numProductos == tamAlmacen)
+			while (numProductos == tamAlmacen)
 				wait();
-			
-			if(numProductos == 0) //solo notifica si hay hilos esperando
+
+			if (numProductos == 0) // solo notifica si hay hilos esperando
 				notifyAll();
-			
+
 			buffer[fin] = producto;
 			fin++;
-			fin = fin%tamAlmacen;
+			fin = fin % tamAlmacen;
 			numProductos++;
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -36,23 +35,21 @@ public class AlmacenSynchronizedMonitor<Producto> implements Almacen<Producto> {
 	public synchronized Producto extraer() {
 		Producto prod = null;
 		try {
-			while(numProductos == 0)
+			while (numProductos == 0)
 				wait();
-			
-			if(numProductos == tamAlmacen)
+
+			if (numProductos == tamAlmacen)
 				notifyAll();
-			
-			prod = (Producto)buffer[inicio];
+
+			prod = (Producto) buffer[inicio];
 			inicio++;
-			inicio = inicio%tamAlmacen;
+			inicio = inicio % tamAlmacen;
 			numProductos--;
 
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return prod;
 	}
-
 }
