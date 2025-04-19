@@ -1,22 +1,10 @@
 package libreria;
 
-import libreria.almacenes.Almacen;
-import libreria.almacenes.AlmacenSemaphoreMulti;
-import libreria.almacenes.AlmacenSemaphoreUnico;
-import libreria.almacenes.almacenes.test.ConsumidorInt;
-import libreria.almacenes.almacenes.test.ProductorInt;
-import libreria.locks.DualLock;
-import libreria.locks.LockBackery;
-import libreria.locks.LockId;
-import libreria.locks.LockRompeEmpate;
-import libreria.locks.LockSemaforo;
-import libreria.locks.LockTicket;
-import libreria.monitores.AddSubLockMonitor;
-import libreria.monitores.AddSubMonitor;
-import libreria.monitores.AddSubSynchronizedMonitor;
-import libreria.monitores.AlmacenLockMonitor;
-import libreria.monitores.AlmacenSynchronizedMonitor;
 import libreria.utils.EnteroConcurrente;
+import libreria.locks.*;
+import libreria.monitores.*;
+import libreria.almacenes.*;
+import libreria.almacenes.test.*;
 
 public class PruebaLibreria {
     public static void prueba(){

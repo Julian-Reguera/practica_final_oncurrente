@@ -1,4 +1,4 @@
-package libreria.almacenes.almacenes.test;
+package libreria.almacenes.test;
 
 import libreria.almacenes.Almacen;
 
