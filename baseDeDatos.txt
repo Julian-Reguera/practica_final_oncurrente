@@ -1,0 +1,7 @@
+4
+2 3 3 1
+Julian German Rafa Lucia 
+cascada.jpeg manzana.jpeg
+listaCompra.txt cascada.jpeg videoGato.mp4
+listaCompra.txt audio.mp3 ciudades.txt
+ciudades.txt
